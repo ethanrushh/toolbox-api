@@ -117,7 +117,37 @@ public class IntegrationTests : IClassFixture<WebApplicationFactory<Program>>
         response.StatusCode.Should()
             .Be(HttpStatusCode.BadRequest);
     }
-    
+
+    [Theory]
+    [InlineData("Hello, World!", "Ethan Rushbrook")]
+    public async Task DeleteNote_WithValidData_IsSuccessful(string content, string creator)
+    {
+        // Arrange
+        var client = _factory.CreateClient();
+        var createUrl = $"{client.BaseAddress}api/notes/create";
+        var deleteUrl = $"{client.BaseAddress}api/notes/delete-note?Id=<id>";
+
+        var createCommand = new CreateNoteCommand(creator, content); // Records are cool, loving the new feature
+
+        // Act
+        var createResponse = await client.PostAsync(createUrl, new StringContent(JsonConvert.SerializeObject(createCommand), Encoding.Default, MediaTypeNames.Application.Json));
+
+        createResponse.EnsureSuccessStatusCode();
+
+        var createResponseContent = await createResponse.Content.ReadAsStringAsync();
+
+        var createResponseDto = JsonConvert.DeserializeObject<NoteReadDto>(createResponseContent);
+        
+        
+        var deleteCommand = new DeleteNoteCommand(createResponseDto.Id);
+        
+        var deleteResponse = await client.DeleteAsync(deleteUrl.Replace("<id>", deleteCommand.Id.ToString()));
+
+        // Assert
+        deleteResponse.EnsureSuccessStatusCode();
+    }
+
+
 
     #endregion
     

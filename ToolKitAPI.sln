@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolKitAPI", "ToolKitAPI\To
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolKitAPI.Core", "ToolKitAPI.Core\ToolKitAPI.Core.csproj", "{996F103C-1907-4E08-B3ED-CD65A529F901}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolKitAPI.Tests", "ToolKitAPI.Tests\ToolKitAPI.Tests.csproj", "{F4C702A6-5DDE-4BD6-A2D1-05512A79FACF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{996F103C-1907-4E08-B3ED-CD65A529F901}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{996F103C-1907-4E08-B3ED-CD65A529F901}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{996F103C-1907-4E08-B3ED-CD65A529F901}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4C702A6-5DDE-4BD6-A2D1-05512A79FACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4C702A6-5DDE-4BD6-A2D1-05512A79FACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4C702A6-5DDE-4BD6-A2D1-05512A79FACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4C702A6-5DDE-4BD6-A2D1-05512A79FACF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

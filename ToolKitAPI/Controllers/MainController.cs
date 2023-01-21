@@ -4,6 +4,7 @@ using ToolKitAPI.Core.Queries;
 
 namespace ToolKitAPI.Controllers;
 
+[Route("/api")]
 [ApiController]
 public class MainController : ControllerBase
 {

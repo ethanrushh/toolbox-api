@@ -1,3 +1,4 @@
+using Hellang.Middleware.ProblemDetails;
 using ToolKitAPI.Core;
 using ToolKitAPI.Data;
 
@@ -19,6 +20,8 @@ public partial class Program
 
 
         var app = builder.Build();
+
+        app.UseProblemDetails();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

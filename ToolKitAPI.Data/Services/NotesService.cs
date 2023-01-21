@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using ToolKitAPI.Core.Exceptions;
 using ToolKitAPI.Data.Contexts;
 using ToolKitAPI.Data.DTOs.Notes;
 using ToolKitAPI.Data.Models;
@@ -34,5 +35,19 @@ public class NotesService
         var notes = await _dbContext.Notes.Take(quantity).ToListAsync();
 
         return _mapper.Map<IEnumerable<NoteReadDto>>(notes);
+    }
+
+    public async Task<NoteReadDto> DeleteNote(Guid id)
+    {
+        var note = await _dbContext.Notes.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (note is default(NoteModel))
+            throw new NotFoundInDatabaseException($"Note with ID {id} was not found in database");
+
+        _dbContext.Notes.Remove(note);
+
+        await _dbContext.SaveChangesAsync();
+
+        return _mapper.Map<NoteReadDto>(note);
     }
 }

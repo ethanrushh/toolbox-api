@@ -120,6 +120,7 @@ public class IntegrationTests : IClassFixture<WebApplicationFactory<Program>>
 
     [Theory]
     [InlineData("Hello, World!", "Ethan Rushbrook")]
+    [InlineData("Second Test Case", "Joe Mama")]
     public async Task DeleteNote_WithValidData_IsSuccessful(string content, string creator)
     {
         // Arrange

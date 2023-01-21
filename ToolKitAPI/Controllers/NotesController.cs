@@ -8,7 +8,7 @@ using ToolKitAPI.Data.DTOs.Notes;
 
 namespace ToolKitAPI.Controllers;
 
-[Microsoft.AspNetCore.Components.Route("/api/notes")]
+[Route("/api/notes")]
 [ApiController]
 public class NotesController : ControllerBase
 {
@@ -21,7 +21,7 @@ public class NotesController : ControllerBase
 
 
     [HttpPost("create")]
-    public async Task<NoteReadDto> CreateNote([FromQuery] CreateNoteCommand command) => await _mediator.Send(command);
+    public async Task<NoteReadDto> CreateNote([FromBody] CreateNoteCommand command) => await _mediator.Send(command);
     
     [HttpGet("get-notes")]
     public async Task<IEnumerable<NoteReadDto>> GetNotes([FromQuery] GetNotesQuery query) => await _mediator.Send(query);

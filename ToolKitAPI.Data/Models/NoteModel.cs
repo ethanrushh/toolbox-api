@@ -9,4 +9,5 @@ public class NoteModel
     
     public string Content { get; set; }
     public string Creator { get; set; }
+    public DateTime LastModifiedUtc { get; set; }
 }

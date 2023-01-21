@@ -2,6 +2,7 @@
 using ToolKitAPI.Data.Contexts;
 using ToolKitAPI.Data.DTOs.Notes;
 using ToolKitAPI.Data.Models;
+using ToolKitAPI.Data.Services;
 
 namespace ToolKitAPI.Data;
 
@@ -15,6 +16,8 @@ public static class DependencyInjection
         });
 
         serviceCollection.AddDbContext<NotesContext>();
+
+        serviceCollection.AddScoped<NotesService>();
 
         return serviceCollection;
     }

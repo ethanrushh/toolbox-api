@@ -1,4 +1,6 @@
-﻿using Hellang.Middleware.ProblemDetails;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Hellang.Middleware.ProblemDetails;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,8 +27,10 @@ public static class DependencyInjection
                 Detail = ex.Message
             });
         });
-        
-        
+
+        serviceCollection.AddValidatorsFromAssembly(localAssembly);
+        serviceCollection.AddFluentValidationAutoValidation();
+
         return serviceCollection;
     }
 }

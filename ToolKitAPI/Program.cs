@@ -1,4 +1,5 @@
 using ToolKitAPI.Core;
+using ToolKitAPI.Data;
 
 public partial class Program
 {
@@ -14,6 +15,7 @@ public partial class Program
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddCoreServices();
+        builder.Services.AddDataServices();
 
 
         var app = builder.Build();

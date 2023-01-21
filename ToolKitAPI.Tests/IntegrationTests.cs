@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Mime;
 using System.Text;
 using FluentAssertions;
@@ -75,6 +76,46 @@ public class IntegrationTests : IClassFixture<WebApplicationFactory<Program>>
             .NotBeEmpty()
             .And
             .NotBe(Guid.Empty);
+    }
+
+    [Theory]
+    [InlineData(null, "Ethan Rushbrook")]
+    [InlineData("More Data...", null)]
+    [InlineData(null, null)]
+    public async Task CreateNote_WithInvalidNote_ReturnsBadRequest(string content, string creator)
+    {
+        // Arrange
+        var client = _factory.CreateClient();
+        var url = $"{client.BaseAddress}api/notes/create";
+
+        var command = new CreateNoteCommand(creator, content); // Records are cool, loving the new feature
+
+        // Act
+        var response = await client.PostAsync(url, new StringContent(JsonConvert.SerializeObject(command), Encoding.Default, MediaTypeNames.Application.Json));
+        
+        // Assert
+        response.StatusCode.Should()
+            .Be(HttpStatusCode.BadRequest);
+    }
+
+    [Theory]
+    [InlineData("", "Ethan Rushbrook")]
+    [InlineData("More Data...", "")]
+    [InlineData("", "")]
+    public async Task CreateNote_WithEmptyFields_ReturnsBadRequest(string content, string creator)
+    {
+        // Arrange
+        var client = _factory.CreateClient();
+        var url = $"{client.BaseAddress}api/notes/create";
+
+        var command = new CreateNoteCommand(creator, content); // Records are cool, loving the new feature
+
+        // Act
+        var response = await client.PostAsync(url, new StringContent(JsonConvert.SerializeObject(command), Encoding.Default, MediaTypeNames.Application.Json));
+        
+        // Assert
+        response.StatusCode.Should()
+            .Be(HttpStatusCode.BadRequest);
     }
     
 

@@ -28,15 +28,15 @@ jobs:
     - name: Deploy to AWS EC2 instance
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.EC2_DEV_KEY }}
+        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
         SOURCE: "./"
-        REMOTE_HOST: ${{ secrets.EC2_DEV_DNS }}
+        REMOTE_HOST: ${{ secrets.EC2_DNS_URL }}
         REMOTE_USER: "ubuntu"
-        TARGET: "/home/ubuntu/cryptovillages-api-autodeploy"
+        TARGET: "/home/ubuntu/api-autodeploy/"
     - name: Restart Kestrel Service
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: sudo systemctl restart kestrelserver.service
-        host: ${{ secrets.EC2_DEV_DNS }}
+        host: ${{ secrets.EC2_DNS_URL }}
         username: ubuntu
-        privateKey: ${{ secrets.EC2_DEV_KEY }}
+        privateKey: ${{ secrets.EC2_SSH_KEY }}

@@ -23,20 +23,3 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: Publish
-      run: dotnet publish -c Release
-    - name: Deploy to AWS EC2 instance
-      uses: easingthemes/ssh-deploy@v2.1.5
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-        SOURCE: "./"
-        REMOTE_HOST: ${{ secrets.EC2_DNS_URL }}
-        REMOTE_USER: "ubuntu"
-        TARGET: "/home/ubuntu/api-autodeploy/"
-    - name: Restart Kestrel systemd Service
-      uses: D3rHase/ssh-command-action@v0.2.2
-      with:
-        host: ${{ secrets.EC2_DNS_URL }}
-        user: ubuntu
-        private_key: ${{ secrets.EC2_SSH_KEY }}
-        command: sudo systemctl restart kestrelserver.service

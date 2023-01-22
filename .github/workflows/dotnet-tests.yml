@@ -33,10 +33,10 @@ jobs:
         REMOTE_HOST: ${{ secrets.EC2_DNS_URL }}
         REMOTE_USER: "ubuntu"
         TARGET: "/home/ubuntu/api-autodeploy/"
-    - name: Restart Kestrel Service
-      uses: garygrossgarten/github-action-ssh@release
+    - name: SSH Command
+      uses: D3rHase/ssh-command-action@v0.2.2
       with:
-        command: sudo systemctl restart kestrelserver.service
         host: ${{ secrets.EC2_DNS_URL }}
-        username: "ubuntu"
-        privateKey: ${{ secrets.EC2_SSH_KEY }}
+        user: ubuntu
+        private_key: ${{ secrets.EC2_SSH_KEY }}
+        command: sudo systemctl restart kestrelserver.service

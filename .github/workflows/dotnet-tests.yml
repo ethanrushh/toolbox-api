@@ -16,10 +16,27 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Publish
+      run: dotnet publish -c Release
+    - name: Deploy to AWS EC2 instance
+      uses: easingthemes/ssh-deploy@v2.1.5
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.EC2_DEV_KEY }}
+        SOURCE: "./"
+        REMOTE_HOST: ${{ secrets.EC2_DEV_DNS }}
+        REMOTE_USER: "ubuntu"
+        TARGET: "/home/ubuntu/cryptovillages-api-autodeploy"
+    - name: Restart Kestrel Service
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+        command: sudo systemctl restart kestrelserver.service
+        host: ${{ secrets.EC2_DEV_DNS }}
+        username: ubuntu
+        privateKey: ${{ secrets.EC2_DEV_KEY }}

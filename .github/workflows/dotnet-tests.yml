@@ -33,7 +33,7 @@ jobs:
         REMOTE_HOST: ${{ secrets.EC2_DNS_URL }}
         REMOTE_USER: "ubuntu"
         TARGET: "/home/ubuntu/api-autodeploy/"
-    - name: SSH Command
+    - name: Restart Kestrel systemd Service
       uses: D3rHase/ssh-command-action@v0.2.2
       with:
         host: ${{ secrets.EC2_DNS_URL }}

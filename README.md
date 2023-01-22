@@ -12,3 +12,6 @@ Shortened to just whats-my-ip, this endpoint will give you the IPV4 address you'
 Your IPV4 Address in plain text
 #### Status Codes
 200 (OK)
+
+
+### TODO: Documentation for the `/api/notes` endpoints

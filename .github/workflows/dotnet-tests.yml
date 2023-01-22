@@ -38,5 +38,5 @@ jobs:
       with:
         command: sudo systemctl restart kestrelserver.service
         host: ${{ secrets.EC2_DNS_URL }}
-        username: ubuntu
+        username: "ubuntu"
         privateKey: ${{ secrets.EC2_SSH_KEY }}

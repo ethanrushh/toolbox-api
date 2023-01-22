@@ -19,9 +19,5 @@ public class MainController : ControllerBase
     [HttpGet("whats-my-ip")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [EndpointDescription("Returns the IPV4 address of an inbound request")]
-    public async Task<IActionResult> WhatsMyIp()
-    {
-        return BadRequest("Proving that tests work");
-        //return await _mediator.Send(new GetIpAddressQuery(HttpContext.Connection.RemoteIpAddress));
-    }
+    public async Task<string> WhatsMyIp() => await _mediator.Send(new GetIpAddressQuery(HttpContext.Connection.RemoteIpAddress));
 }
